@@ -1,0 +1,12 @@
+<% if (error != '') {%>
+    <div class="flash mt-2 col-lg-6 offset-lg-3 alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+<% if (success != '') {%>
+    <div class="flash mt-2 col-lg-6 offset-lg-3 alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>

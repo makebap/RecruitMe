@@ -1,0 +1,43 @@
+body {
+    padding-top: 4em;
+}
+
+img {
+    height: 15em;
+    width: auto;
+    object-fit: cover;
+}
+
+.form-control:focus {
+    border: 1px solid white;
+    outline: 0 none;
+}
+
+#logo {
+    width: 3em;
+    height: auto;
+}
+
+.flash {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    width: fit-content;
+    margin-top: 5em;
+}
+
+.spinner{
+    height: 80vh;
+}
+
+.edit-images{
+    height: 5em;
+    width: auto;
+    object-fit: cover;
+}
+
+.btn-outline-danger {
+    margin-left: 5px;
+}
+
+.dropdown-toggle:after { content: none }

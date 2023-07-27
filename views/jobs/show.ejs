@@ -1,0 +1,61 @@
+<% layout('./layouts/boilerplate'); %>
+<div class="row d-flex flex-row justify-content-between">
+    <div class="col-md-10 offset-md-1 col-lg-6 offset-lg-3">
+    <div class="card my-3 card-img-top">
+        <div id="carouselIndicators" class="carousel slide">
+            <% if(job.images.length > 1){ %>
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <% for(let i=1; i < job.images.length; i++){ %>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
+                <% } %>
+            </div>
+            <% } %>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="<%= job.images[0].url %>" class="d-block w-100" alt="<%= job.images[0].fileName %>...">
+                </div>
+                <% for(let i=1; i < job.images.length; i++){ %>
+                    <div class="carousel-item">
+                        <img src="<%= job.images[i].url %>" class="d-block w-100" alt="<%= job.images[i].fileName %>">
+                    </div>
+                <% } %>
+            </div>
+            <% if(job.images.length > 1){ %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <h5><%= job.title %></h5>
+                <h6><%= job.company %></h6>
+            </div>
+            <p>$<%= job.salary %>/<%= job.frequency %></p>
+                <span class="badge text-bg-secondary rounded-pill"><%= job.schedule %></span> <span class="badge text-bg-secondary rounded-pill"><%= job.level %></span>
+            <p class="card-text"><%= job.location %></p>
+            <p class="card-text"><%= job.description %></p>
+        </div>
+        <div class="card-body">
+            <% if(!currentUser || currentUser != job.owner) { %>
+                <a href="/jobs/apply" class="card-link btn btn-primary">Apply</a>
+            <% } else { %>
+                <a href="/jobs/<%= job._id %>/edit" class="card-link btn btn-primary">Edit</a>
+                <form class="d-inline" action="/jobs/<%= job._id %>?_method=DELETE" method="post">
+                    <% for (let i=0; i < job.images.length; i++){ %>
+                        <input hidden aria-hidden="true" type="text" id="delete-image<%= i %>" autocomplete="off" name="deleteImages[]" value="<%= job.images[i].fileName %>">
+                    <% } %>
+                    
+                    <button class="card-link btn btn-danger">Delete</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+    </div>
+</div>

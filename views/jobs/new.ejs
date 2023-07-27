@@ -1,0 +1,56 @@
+<% layout('./layouts/boilerplate'); %>
+<div class="row">
+    <h1 class="text-center mb-3">Add a New Job</h1>
+    <div class="col-6 offset-3">
+        <form action="/jobs" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="mb-3 has-validation">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control focus-ring focus-ring-secondary" id="title" name="job[title]" required>
+            </div>
+            <div class="mb-3 has-validation">
+                <label for="company" class="form-label">Company</label>
+                <input type="text" class="form-control focus-ring focus-ring-secondary" id="company" name="job[company]" required>
+            </div>
+            <div class="mb-3 has-validation">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control focus-ring focus-ring-secondary" id="location" name="job[location]" placeholder="City, State" required>
+            </div>
+            <label for="salary" class="form-label">Salary</label>
+            <div class="input-group mb-3">    
+                <span class="input-group-text">$</span>
+                <input id="salary" type="text" class="form-control has-validation focus-ring focus-ring-secondary" aria-label="" aria-describedby="salary-label" name="job[salary]" placeholder="0.00" required>
+                <span class="input-group-text">/</span>
+                <select class="form-select form-select-sm focus-ring focus-ring-secondary" aria-label=".form-select-sm" name="job[frequency]">
+                    <option value="Month" selected>Monthly</option>
+                    <option value="Week">Weekly</option>
+                    <option value="Fortnight">Fortnightly</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="schedule">Full/Part Time</label>
+                <select id="schedule" class="form-select form-select-sm focus-ring focus-ring-secondary" aria-label=".form-select-sm" name="job[schedule]">
+                    <option value="Full Time" selected>Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="level">Level</label>
+                <select id="level" class="form-select form-select-sm focus-ring focus-ring-secondary" aria-label=".form-select-sm" name="job[level]">
+                    <option value="Entry" selected>Entry</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Senior">Senior</option>
+                </select>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control focus-ring focus-ring-secondary" id="description" placeholder="Description" name="job[description]" required></textarea>
+                <label for="description">Description</label>
+            </div>
+            <div class="mb-3">
+                <label for="imageFile" class="form-label">Images</label>
+                <input multiple type="file" class="form-control focus-ring focus-ring-secondary" id="imageFile" name="job[imageFile]">
+            </div>
+            <button class="btn btn-primary mb-3" type="submit">Submit</button>
+        </form>
+    </div>
+</div>

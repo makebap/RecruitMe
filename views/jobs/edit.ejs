@@ -1,0 +1,124 @@
+<% layout('./layouts/boilerplate'); %>
+<form action="/jobs/<%= job._id %>?_method=PUT" method="post"  enctype="multipart/form-data">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light" id="editModalLabel">Edit Images</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <% for (let i=0; i < job.images.length; i++) { %>
+                    <div class="row d-flex flex-row justify-content-between mb-3">
+                        <div class="col-6">
+                            <input type="checkbox" class="btn-check" id="delete-image<%= i %>" autocomplete="off" name="deleteImages[]" value="<%= job.images[i].fileName %>">
+                            <label class="btn btn-outline-danger position-absolute start-5 translate-middle badge rounded-pill" for="delete-image<%= i %>">X</label>
+                            <img src="<%= job.images[i].url %>" class="d-block w-100 edit-images" alt="<%= job.images[i].fileName %>">
+                        </div>
+                    <% i++; if(i < job.images.length) { %>
+                        <div class="col-6">
+                            <input type="checkbox" class="btn-check" id="delete-image<%= i %>" autocomplete="off" name="deleteImages[]" value="<%= job.images[i].fileName %>">
+                            <label class="btn btn-outline-danger position-absolute start-5 translate-middle badge rounded-pill" for="delete-image<%= i %>">X</label>
+                            <img src="<%= job.images[i].url %>" class="d-block w-100 edit-images" alt="<%= job.images[i].fileName %>">
+                        </div>
+                    <% } %>
+                    </div>
+                <% } %>
+                <div class="mb-3">
+                    <label for="imageFiles" class="form-label text-white">Add images</label>
+                    <input multiple type="file" class="form-control focus-ring focus-ring-secondary" id="imageFiles" name="job[imageFile]">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row d-flex flex-row justify-content-between">
+    <div class="col-md-10 offset-md-1 col-lg-6 offset-lg-3">
+    <div class="card my-3 card-img-top">
+        <div id="carouselIndicators" class="carousel slide">
+            <% if(job.images.length > 1){ %>
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <% for(let i=1; i < job.images.length; i++){ %>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
+                <% } %>
+            </div>
+            <% } %>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="<%= job.images[0].url %>" class="d-block w-100" alt="<%= job.images[0].fileName %>">
+                    <div class="carousel-caption d-none d-md-block">
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">Edit Images</button>
+                    </div>
+                </div>
+                <% for(let i=1; i < job.images.length; i++){ %>
+                    <div class="carousel-item">
+                        <img src="<%= job.images[i].url %>" class="d-block w-100" alt="<%= job.images[i].fileName %>">
+                        <div class="carousel-caption d-none d-md-block">
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">Edit Images</button>
+                    </div>
+                    </div>
+                <% } %>
+            </div>
+            <% if(job.images.length > 1){ %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <div class="mb-3 has-validation">            
+                    <h5><input type="text" class="form-control  focus-ring focus-ring-secondary" id="title" name="job[title]" required value="<%= job.title %>"></h5>
+                </div>
+                <div class="mb-3 has-validation">            
+                    <h6><input type="text" class="form-control focus-ring focus-ring-secondary" id="company" name="job[company]" required value="<%= job.company %>"></h6>
+                </div>
+                
+            </div>
+            <div class="input-group mb-3">    
+                <span class="input-group-text">$</span>
+                <input id="salary" type="text" class="form-control has-validation focus-ring focus-ring-secondary" aria-label="" aria-describedby="salary-label" name="job[salary]" placeholder="0.00" required value="<%= job.salary %>">
+                <span class="input-group-text">/</span>
+                <select class="form-select form-select-sm focus-ring focus-ring-secondary" aria-label=".form-select-sm" name="job[frequency]">
+                    <option value="Month" <% if(job.frequency == "Month") {%>selected<% } %>>Monthly</option>
+                    <option value="Week" <% if(job.frequency == "Week") {%>selected<% } %>>Weekly</option>
+                    <option value="Fortnight" <% if(job.frequency == "Fortnight") {%>selected<% } %>>Fortnightly</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-5 mb-3 has-validation">
+                    <select id="schedule" class="form-select form-select-sm focus-ring focus-ring-secondary" aria-label=".form-select-sm" name="job[schedule]">
+                        <option value="Full Time" <% if(job.schedule == "Full Time") {%>selected<% } %>>Full Time</option>
+                        <option value="Part Time" <% if(job.schedule == "Part Time") {%>selected<% } %>>Part Time</option>
+                    </select>
+                </div>
+                <div class="col-5 mb-3 has-validation">
+                    <select id="schedule" class="form-select form-select-sm focus-ring focus-ring-secondary" aria-label=".form-select-sm" name="job[level]">
+                        <option value="Entry" <% if(job.level == "Entry") {%>selected<% } %>>Entry</option>
+                        <option value="Intermediate" <% if(job.level == "Intermediate") {%>selected<% } %>>Intermediate</option>
+                        <option value="Advanced" <% if(job.level == "Advanced") {%>selected<% } %>>Advanced</option>
+                        <option value="Senior" <% if(job.level == "Senior") {%>selected<% } %>>Senior</option>
+                    </select>
+                </div>
+            </div>
+            <input type="text" class="form-control focus-ring focus-ring-secondary mb-3 has-validation" id="location" name="job[location]" required value="<%= job.location %>">
+
+            <textarea class="form-control focus-ring focus-ring-secondary" placeholder="Description" id="description" name="job[description]"><%= job.description %></textarea>
+        </div>
+        <div class="card-body">
+            <button class="btn btn-primary mb-3" type="submit">Submit</button>
+        </div>
+    </div>
+    </div>
+</div>
+</form>

@@ -1,0 +1,38 @@
+body {
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.container{
+    padding: 0;
+    margin: 0;
+}
+
+#landing{
+    margin: 0;
+    background-image: url('../images/cytonn-photography-n95VMLxqM2I-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.cover-light{
+    background-color: rgba(0, 0, 0, 0.394);
+    height: 100vh;
+    width: 100vw;
+    color: whitesmoke;
+    margin: 0;
+}
+
+#landing-search{
+    background-color: rgba(0, 0, 0, 0.394);
+    height: 100vh;
+    padding-top: 5em;
+    padding-left: 5em;
+}
+
+#quote {
+    text-align: right;
+}
