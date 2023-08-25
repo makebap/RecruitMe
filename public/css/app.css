@@ -41,3 +41,26 @@ img {
 }
 
 .dropdown-toggle:after { content: none }
+
+/*custom scrollbar*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #c3c2c200; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #424242; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #282828; 
+}
+/*end of scrollbar*/
